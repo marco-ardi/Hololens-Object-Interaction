@@ -1,0 +1,80 @@
+version: "2.1"
+
+services: 
+    logstash: 
+        build:
+            context: logstash
+            dockerfile: Dockerfile
+        container_name: logstash
+        volumes: 
+            - ./logstash/csv:/usr/share/logstash/csv    
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+        container_name: elasticsearch
+        expose:
+            - 9200
+            - 9300
+        environment: 
+            - discovery.type=single-node
+            - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    kibana:
+        build:
+            context: kibana
+            dockerfile: Dockerfile
+        container_name: kibana
+        ports:
+            - 5601:5601
+        depends_on: 
+            - elasticsearch  
+    zookeeper:
+        build:
+            context: kafka
+            dockerfile: Dockerfile
+        container_name: zookeeper
+        command: [ "zookeeper-server-start.sh", "config/zookeeper.properties" ] 
+        expose: 
+            - 2181
+    kafkaserver:
+        build:
+            context: kafka
+            dockerfile: Dockerfile
+        container_name: kafkaserver
+        depends_on: 
+            - zookeeper
+        command: [ "kafka-server-start.sh", "config/server.properties" ] 
+        expose: 
+            - 9092
+    kafkaui:
+        image: provectuslabs/kafka-ui:latest
+        container_name: kafkaui
+        environment:
+            - KAFKA_CLUSTERS_0_NAME=my_cluster
+            - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+            - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafkaserver:9092
+        ports: 
+            - 8080:8080
+        depends_on:
+            - kafkaserver
+    spark:
+        build: 
+            context: spark
+            dockerfile: Dockerfile
+        ports:
+            - 4040:4040
+        container_name: spark
+        environment:
+            NVIDIA_VISIBLE_DEVICES: all
+            NVIDIA_DRIVER_CAPABILITIES: all
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - capabilities:
+                            - gpu
+        depends_on: 
+            - kafkaserver
+        volumes: 
+            - ./logstash/csv:/usr/share/logstash/csv    
+    
+volumes:
+    csv:
