@@ -91,6 +91,8 @@ def apply_detectron_row(kafka_row):
     # load img
     id = str(kafka_row[0])
     print("id=" + id)
+    if(not os.path.exists("/home/marco/progetto/logstash/csv/" + id + ".jpg")):     #if there is no photo return list of 0
+        return [0 for x in range(len(df_labels))]                                   #otherwise it crashes
     tmp_img = load_img("/home/marco/progetto/logstash/csv/" + id + ".jpg")
     #cv2.imshow(tmp_img)
     tmp_outputs = predict(tmp_img)

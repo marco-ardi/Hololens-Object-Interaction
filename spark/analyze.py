@@ -34,7 +34,7 @@ cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.55  # set threshold for this model
 # Find a model from detectron2's model zoo. You can use the https://dl.fbaipublicfiles... url as well
 cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url(
     "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
-predictor = DefaultPredictor(cfg)
+
 
 
 def load_img(path):
@@ -43,6 +43,7 @@ def load_img(path):
 
 
 def predict(im):
+    predictor = DefaultPredictor(cfg.value)
     outputs = predictor(im)
     return outputs
 
@@ -53,7 +54,7 @@ def check_labels(coord, outputs):
     offset = 10
 
     pred_classes = outputs["instances"].pred_classes.tolist()
-    class_names = MetadataCatalog.get(cfg.DATASETS.TRAIN[0]).thing_classes
+    class_names = MetadataCatalog.get(cfg.value.DATASETS.TRAIN[0]).thing_classes
     pred_class_names = list(map(lambda x: class_names[x], pred_classes))
 
     for i in range(len(outputs["instances"].pred_boxes)):
@@ -77,7 +78,7 @@ def check_labels(coord, outputs):
 
 def visualize(im, outputs):
     v = Visualizer(
-        im[:, :, ::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
+        im[:, :, ::-1], MetadataCatalog.get(cfg.value.DATASETS.TRAIN[0]), scale=1.2)
 
     out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
 
@@ -91,57 +92,40 @@ def visualize(im, outputs):
 #["id", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20", "c21", "c22"]
 
 def apply_detectron_row(kafka_row):
-    print("palagonia")
-    print(kafka_row)
-    print(list(result_schema))
+    #print(kafka_row)
+    #print(kafka_row.asDict())
+    #print(list(kafka_row.asDict().values()))
+    #print(list(result_schema))
     df_labels=result_schema.fieldNames()
-    #print(list(map(lambda a : result_schema[:[0]], result_schema)))
-    
-    print(type(kafka_row))
-    #print(list(row.asDict()))
-    kafka_row = list(kafka_row.asDict())
-    #return
-    #ids = []
+    #print(df_labels)
 
-    #df_labels = []
-#    for i in range(0, len(df[0])):
-#        ids.append(df.iloc[i][0])
+    
+    #print(type(kafka_row))
+    kafka_row = kafka_row.asDict()
+    kafka_row = list(kafka_row.values())
+
     labels = []
 
-    # load img
     id = str(kafka_row[0])
+    print(kafka_row[0])
+    print("id =" + id)
+
+    if(not os.path.isfile("/usr/share/logstash/csv/" + id + ".jpg")):#check if photos exists, if not return 0
+        return list([id] + [0 for x in range(len(df_labels)-1)])     #cause otherwise it will crash
+
     tmp_img = load_img("/usr/share/logstash/csv/" + id + ".jpg")
-    # cv2.imshow(tmp_img)
+    print(tmp_img.shape)
     tmp_outputs = predict(tmp_img)
-    #for j in range(1, len(kafka_row)-1):
-        # search in the nearby of coordinates
-        #if(kafka_row[j] >= 0 and kafka_row[j+1] >= 0):  # filtering <0 values and NaN
-            #labels += check_labels(coord=[kafka_row[j], kafka_row[j+1]], outputs=tmp_outputs)
-            #df_labels += labels
-    #visualize(tmp_img, tmp_outputs)
 
     for j in range(1, len(kafka_row)-1):   
     # search in the nearby of coordinates  1-2  2-3  3-4
         if(kafka_row[j] >= 0 and kafka_row[j+1] >= 0):  # filtering <0 values and NaN
             labels += check_labels(coord=[kafka_row[j], kafka_row[j+1]], outputs=tmp_outputs)
         j+=1
-#    for coord_x, coord_y in zip(kafka_row, kafka_row[1:]):
-#        if coord_x<0 or coord_y <0:
-#            continue
-#        labels += check_labels(coord=[coord_x, coord_y], outputs=tmp_outputs)
 
     labels = list(set(labels))
     labels.sort()
     labels.insert(0, id)
-    #[id, classe1, class4, class2]->labels   ----  [id, class1, class2, classn] ->schema
-    #[17726262533, cane, gatto] -> es labels ----  [?, person, cane, gatto]
-
-    #df_labels = list(set(df_labels))
-    #df_labels.sort()
-    #df_labels.insert(0, "id")
-
-    #final_df = pd.DataFrame(columns=df_labels)
-    #row.. = 12233232, 0, 0, 0
     row_to_append = []
     row_to_append.append(id)
     for w in range(1, len(df_labels)):
@@ -153,26 +137,58 @@ def apply_detectron_row(kafka_row):
                 row_to_append[j] = 1
                 continue
 
-#[id, cane, gatto] -> [id, cane, lupo, gatto]
-#   id, 0, 0, 0
-#    for i in range(len(nested_labels)):
-#        row_to_append = []
-#        row_to_append.append(nested_labels[i][0])
-#        for k in range(1, len(df_labels)):
-#            row_to_append.append(0)
-#        for j in range(1, len(nested_labels[i])):
-#
-#            for z in range(1, len(df_labels)):
-#                if (df_labels[z] == nested_labels[i][j]):
-#                    row_to_append[z] += 1
-        # print(row)
-        #series = pd.Series(row_to_append, index=final_df.columns)
-        #final_df = final_df.append(series, ignore_index=True)
-    # print(df_labels)
-    # print(nested_labels)
-    print("ramacca")
-    print(row_to_append)
+    #print(row_to_append)
     return row_to_append
+
+
+def apply_detectron_row_modified(kafka_row):
+    #print(kafka_row)
+    #print(kafka_row.asDict())
+    #print(list(kafka_row.asDict().values()))
+    #print(list(result_schema))
+    df_labels=result_schema.fieldNames()
+    #print(df_labels)
+
+    
+    #print(type(kafka_row))
+    kafka_row = kafka_row.asDict()
+    kafka_row = list(kafka_row.values())
+
+    labels = []
+
+    # load img
+    id = str(kafka_row[0])
+    print(kafka_row[0])
+    print("id =" + id)
+
+    if(not os.path.isfile("/usr/share/logstash/csv/" + id + ".jpg")):#check if photos exists, if not return 0
+        return list([id] + [0 for x in range(len(df_labels)-1)])     #cause otherwise it will crash
+
+    tmp_img = load_img("/usr/share/logstash/csv/" + id + ".jpg")
+    print(tmp_img.shape)
+    tmp_outputs = predict(tmp_img)
+
+    for j in range(1, len(kafka_row)-1):   
+    # search in the nearby of coordinates  1-2  2-3  3-4
+        if(kafka_row[j] >= 0 and kafka_row[j+1] >= 0):  # filtering <0 values and NaN
+            labels += check_labels(coord=[kafka_row[j], kafka_row[j+1]], outputs=tmp_outputs)
+        j+=1
+#    for coord_x, coord_y in zip(kafka_row, kafka_row[1:]):
+#        if coord_x<0 or coord_y <0:
+#            continue
+#        labels += check_labels(coord=[coord_x, coord_y], outputs=tmp_outputs)
+
+    labels = set(labels)
+    #labels.add(id)
+    df_labels = set(df_labels)
+    row_to_append = labels & df_labels
+    result = {
+        "id":id,
+        "classes": list(row_to_append)
+    }
+
+    print(result)
+    return result
 
 
 kafkaServer = "kafkaserver:9092"
@@ -181,15 +197,105 @@ elastic_host = "elasticsearch"
 elastic_topic = "tap"
 elastic_index = "tap"
 
+es_mapping = {
+    "mappings":{
+        "properties":{
+            "id":{"type":"date"},
+            "person":{"type":"integer"},
+            "bicycle":{"type":"integer"},
+            "car":{"type":"integer"},
+            "motorcycle":{"type":"integer"},
+            "airplane":{"type":"integer"},
+            "bus":{"type":"integer"},
+            "train":{"type":"integer"},
+            "truck":{"type":"integer"},
+            "boat":{"type":"integer"},
+            "traffic_light":{"type":"integer"},
+            "fireplug":{"type":"integer"},
+            "stop_sign":{"type":"integer"},
+            "parking_meter":{"type":"integer"},
+            "bench":{"type":"integer"},
+            "bird":{"type":"integer"},
+            "cat":{"type":"integer"},
+            "dog":{"type":"integer"},
+            "horse":{"type":"integer"},
+            "sheep":{"type":"integer"},
+            "beef":{"type":"integer"},
+            "elephant":{"type":"integer"},
+            "bear":{"type":"integer"},
+            "zebra":{"type":"integer"},
+            "giraffe":{"type":"integer"},
+            "backpack":{"type":"integer"},
+            "umbrella":{"type":"integer"},
+            "bag":{"type":"integer"},
+            "necktie":{"type":"integer"},
+            "bag2":{"type":"integer"},
+            "frisbee":{"type":"integer"},
+            "ski":{"type":"integer"},
+            "snowboard":{"type":"integer"},
+            "ball":{"type":"integer"},
+            "kite":{"type":"integer"},
+            "baseball_bat":{"type":"integer"},
+            "baseball_glove":{"type":"integer"},
+            "skateboard":{"type":"integer"},
+            "surfboard":{"type":"integer"},
+            "tennis_racket":{"type":"integer"},
+            "bottle":{"type":"integer"},
+            "wineglass":{"type":"integer"},
+            "cup":{"type":"integer"},
+            "fork":{"type":"integer"},
+            "knife":{"type":"integer"},
+            "spoon":{"type":"integer"},
+            "bowl":{"type":"integer"},
+            "banana":{"type":"integer"},
+            "apple":{"type":"integer"},
+            "sandwich":{"type":"integer"},
+            "orange":{"type":"integer"},
+            "broccoli":{"type":"integer"},
+            "carrot":{"type":"integer"},
+            "frank":{"type":"integer"},
+            "pizza":{"type":"integer"},
+            "doughnut":{"type":"integer"},
+            "cake":{"type":"integer"},
+            "chair":{"type":"integer"},
+            "sofa":{"type":"integer"},
+            "pot":{"type":"integer"},
+            "bed":{"type":"integer"},
+            "dining_table":{"type":"integer"},
+            "toilet":{"type":"integer"},
+            "television_receiver":{"type":"integer"},
+            "laptop":{"type":"integer"},
+            "mouse":{"type":"integer"},
+            "remote_control":{"type":"integer"},
+            "computer_keyboard":{"type":"integer"},
+            "cellular_telephone":{"type":"integer"},
+            "microwave":{"type":"integer"},
+            "oven":{"type":"integer"},
+            "toaster":{"type":"integer"},
+            "sink":{"type":"integer"},
+            "electric_refrigerator":{"type":"integer"},
+            "book":{"type":"integer"},
+            "clock":{"type":"integer"},
+            "vase":{"type":"integer"},
+            "scissors":{"type":"integer"},
+            "teddy":{"type":"integer"},
+            "hand_blower":{"type":"integer"},
+            "toothbrush":{"type":"integer"},
+        }
+    }
+}
+
+
 es = Elasticsearch(hosts=elastic_host)
 while not es.ping():
     time.sleep(1)
 
-# response = es.indices.create(
-#    index=elastic_index,
-#    body=es_mapping, definire es_mapping prima di decommentare
-#    ignore=400  # ignore 400 already exists code
-# )
+es.indices.create(
+    index=elastic_index,
+    body=es_mapping,
+    ignore=400  # ignore 400 already exists code
+)
+
 
 # sessione spark
 #    .set("spark.executor.heartbeatInterval", "200000") \
@@ -203,6 +309,8 @@ sparkConf = SparkConf().set("spark.app.name", "network-tap") \
 sc = SparkContext.getOrCreate(conf=sparkConf)
 spark = SparkSession(sc)
 spark.sparkContext.setLogLevel("WARN")
+#ADDED
+cfg = spark.sparkContext.broadcast(cfg)
 
 # leggere da kafka
 df_kafka = spark \
@@ -269,7 +377,7 @@ result_schema = tp.StructType([
     tp.StructField(name='umbrella', dataType=tp.IntegerType(), nullable=True),
     tp.StructField(name='bag', dataType=tp.IntegerType(), nullable=True),
     tp.StructField(name='necktie', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bag', dataType=tp.IntegerType(), nullable=True),
+    tp.StructField(name='bag2', dataType=tp.IntegerType(), nullable=True),
     tp.StructField(name='frisbee', dataType=tp.IntegerType(), nullable=True),
     tp.StructField(name='ski', dataType=tp.IntegerType(), nullable=True),
     tp.StructField(name='snowboard', dataType=tp.IntegerType(), nullable=True),
@@ -323,11 +431,15 @@ result_schema = tp.StructType([
     tp.StructField(name='toothbrush', dataType=tp.IntegerType(), nullable=True)
 ])
 
+result_schema_modified =tp.StructType([
+    tp.StructField(name="id", dataType=tp.StringType(), nullable=True),
+    tp.StructField(name="classes", dataType=tp.ArrayType(tp.StringType()), nullable=True)
+])
 
 def useless(row): 
     return list(row.asDict()) + list(row.asDict()) + list(row.asDict()) + list(row.asDict())[0:12]
 
-apply_udf = udf(apply_detectron_row, result_schema)
+apply_udf = udf(apply_detectron_row_modified, result_schema_modified)
 #apply_udf = udf(useless, result_schema)
 
 df_kafka = df_kafka.selectExpr("CAST(value AS STRING)")\
@@ -349,8 +461,9 @@ df_kafka = df_kafka \
 df_kafka \
     .writeStream \
     .option("checkpointLocation", "/tmp/checkpoints") \
-    .format("console") \
-    .outputMode("append") \
-    .start() \
+    .format("es") \
+    .start(elastic_index) \
     .awaitTermination()
 # .option("checkpointLocation", "/tmp/checkpoints") \
+# .outputMode("append") \
+#spark.streams.awaitAnyTermination()
