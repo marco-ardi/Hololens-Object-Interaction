@@ -162,8 +162,8 @@ def apply_detectron_row_modified(kafka_row):
     print("id =" + id)
 
     if(not os.path.isfile("/usr/share/logstash/csv/" + id + ".jpg")):#check if photos exists, if not return 0
-        return list([id] + [0 for x in range(len(df_labels)-1)])     #cause otherwise it will crash
-
+        #return list([id] + [0 for x in range(len(df_labels)-1)])     #cause otherwise it will crash
+        return {"id":id, "classes":""}
     tmp_img = load_img("/usr/share/logstash/csv/" + id + ".jpg")
     print(tmp_img.shape)
     tmp_outputs = predict(tmp_img)
@@ -286,13 +286,22 @@ es_mapping = {
 }
 
 
+es_mapping_modified = {
+    "mappings":{
+        "properties":{
+            "id":{"type":"date"},
+            #"classes":{"type":"text"}
+        }
+    }
+}
+
 es = Elasticsearch(hosts=elastic_host)
 while not es.ping():
     time.sleep(1)
 
 es.indices.create(
     index=elastic_index,
-    body=es_mapping,
+    body=es_mapping_modified,
     ignore=400  # ignore 400 already exists code
 )
 
@@ -436,8 +445,6 @@ result_schema_modified =tp.StructType([
     tp.StructField(name="classes", dataType=tp.ArrayType(tp.StringType()), nullable=True)
 ])
 
-def useless(row): 
-    return list(row.asDict()) + list(row.asDict()) + list(row.asDict()) + list(row.asDict())[0:12]
 
 apply_udf = udf(apply_detectron_row_modified, result_schema_modified)
 #apply_udf = udf(useless, result_schema)
@@ -446,9 +453,7 @@ df_kafka = df_kafka.selectExpr("CAST(value AS STRING)")\
     .select(from_json("value", data_struct).alias("data"))\
     .select("data.*")
 
-#df_kafka = df_kafka \
-#    .select("*", apply_udf(struct([df_kafka[x] for x in df_kafka.columns])).alias("result")) \
-#    .select("result.*")
+
 df_kafka = df_kafka \
     .select(apply_udf(struct([df_kafka[x] for x in df_kafka.columns])).alias("result")) \
     .select("result.*")
@@ -467,3 +472,4 @@ df_kafka \
 # .option("checkpointLocation", "/tmp/checkpoints") \
 # .outputMode("append") \
 #spark.streams.awaitAnyTermination()
+#http://localhost:5601/app/dashboards#/view/fe8bacf0-0e72-11ec-adf3-e16766a3809f?_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!f%2Cvalue%3A5000)%2Ctime%3A(from%3A'2021-08-02T12%3A00%3A00.000Z'%2Cto%3A'2021-08-02T17%3A30%3A00.000Z'))
