@@ -89,18 +89,11 @@ def visualize(im, outputs):
 
 
 
-#["id", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18", "c19", "c20", "c21", "c22"]
-
+#Version 1.0, return a list of 81 integers (each class), 1 -> present / 0 -> not present
 def apply_detectron_row(kafka_row):
-    #print(kafka_row)
-    #print(kafka_row.asDict())
-    #print(list(kafka_row.asDict().values()))
-    #print(list(result_schema))
-    df_labels=result_schema.fieldNames()
-    #print(df_labels)
 
-    
-    #print(type(kafka_row))
+    df_labels=result_schema.fieldNames()
+
     kafka_row = kafka_row.asDict()
     kafka_row = list(kafka_row.values())
 
@@ -140,16 +133,10 @@ def apply_detectron_row(kafka_row):
     #print(row_to_append)
     return row_to_append
 
-
+#Version 2.0 return the id and a list of every class present in the image
 def apply_detectron_row_modified(kafka_row):
-    #print(kafka_row)
-    #print(kafka_row.asDict())
-    #print(list(kafka_row.asDict().values()))
-    #print(list(result_schema))
     df_labels=result_schema.fieldNames()
     #print(df_labels)
-
-    
     #print(type(kafka_row))
     kafka_row = kafka_row.asDict()
     kafka_row = list(kafka_row.values())
@@ -173,10 +160,6 @@ def apply_detectron_row_modified(kafka_row):
         if(kafka_row[j] >= 0 and kafka_row[j+1] >= 0):  # filtering <0 values and NaN
             labels += check_labels(coord=[kafka_row[j], kafka_row[j+1]], outputs=tmp_outputs)
         j+=1
-#    for coord_x, coord_y in zip(kafka_row, kafka_row[1:]):
-#        if coord_x<0 or coord_y <0:
-#            continue
-#        labels += check_labels(coord=[coord_x, coord_y], outputs=tmp_outputs)
 
     labels = set(labels)
     #labels.add(id)
@@ -191,12 +174,8 @@ def apply_detectron_row_modified(kafka_row):
     return result
 
 
-kafkaServer = "kafkaserver:9092"
-elastic_host = "elasticsearch"
 
-elastic_topic = "tap"
-elastic_index = "tap"
-
+#Version 1.0 81 element, one per possible class
 es_mapping = {
     "mappings":{
         "properties":{
@@ -285,7 +264,7 @@ es_mapping = {
     }
 }
 
-
+#Version 2.0 id and list of classes
 es_mapping_modified = {
     "mappings":{
         "properties":{
@@ -294,6 +273,12 @@ es_mapping_modified = {
         }
     }
 }
+
+kafkaServer = "kafkaserver:9092"
+elastic_host = "elasticsearch"
+
+elastic_topic = "tap"
+elastic_index = "tap"
 
 es = Elasticsearch(hosts=elastic_host)
 while not es.ping():
@@ -306,9 +291,7 @@ es.indices.create(
 )
 
 
-# sessione spark
-#    .set("spark.executor.heartbeatInterval", "200000") \
-#    .set("spark.network.timeout", "300000") \
+#Configuring Spark
 sparkConf = SparkConf().set("spark.app.name", "network-tap") \
     .set("es.nodes", elastic_host) \
     .set("es.port", "9200") \
@@ -318,17 +301,10 @@ sparkConf = SparkConf().set("spark.app.name", "network-tap") \
 sc = SparkContext.getOrCreate(conf=sparkConf)
 spark = SparkSession(sc)
 spark.sparkContext.setLogLevel("WARN")
-#ADDED
+#MANDATORY 
 cfg = spark.sparkContext.broadcast(cfg)
 
-# leggere da kafka
-df_kafka = spark \
-    .readStream \
-    .format("kafka") \
-    .option("kafka.bootstrap.servers", kafkaServer) \
-    .option("subscribe", elastic_topic) \
-    .option("startingOffset", "earliest") \
-    .load()
+
 
 data_struct = tp.StructType([
     tp.StructField(name="id", dataType=tp.StringType(), nullable=True),
@@ -356,6 +332,7 @@ data_struct = tp.StructType([
     tp.StructField(name="c22", dataType=tp.IntegerType(), nullable=True)
 ])
 
+#Version 1.0
 result_schema = tp.StructType([
     tp.StructField(name="id", dataType=tp.StringType(), nullable=True),
     tp.StructField(name='person', dataType=tp.IntegerType(), nullable=True),
@@ -440,36 +417,40 @@ result_schema = tp.StructType([
     tp.StructField(name='toothbrush', dataType=tp.IntegerType(), nullable=True)
 ])
 
+#Version 2.0
 result_schema_modified =tp.StructType([
     tp.StructField(name="id", dataType=tp.StringType(), nullable=True),
     tp.StructField(name="classes", dataType=tp.ArrayType(tp.StringType()), nullable=True)
 ])
 
-
+#Declaring apply_detectron as user defined function
 apply_udf = udf(apply_detectron_row_modified, result_schema_modified)
-#apply_udf = udf(useless, result_schema)
 
+#reading kafka stream
+df_kafka = spark \
+    .readStream \
+    .format("kafka") \
+    .option("kafka.bootstrap.servers", kafkaServer) \
+    .option("subscribe", elastic_topic) \
+    .option("startingOffset", "earliest") \
+    .load()
+
+#selecting data
 df_kafka = df_kafka.selectExpr("CAST(value AS STRING)")\
     .select(from_json("value", data_struct).alias("data"))\
     .select("data.*")
 
-
+#applying detectron on a single row, coming from kafka
 df_kafka = df_kafka \
     .select(apply_udf(struct([df_kafka[x] for x in df_kafka.columns])).alias("result")) \
     .select("result.*")
 
-
-#df_kafka = df_kafka\
-#    .select(apply_udf(df_kafka).alias("decoded").select("decoded.*"))
-
-
+#outputting list of classes to elastic searc
 df_kafka \
     .writeStream \
     .option("checkpointLocation", "/tmp/checkpoints") \
     .format("es") \
     .start(elastic_index) \
     .awaitTermination()
-# .option("checkpointLocation", "/tmp/checkpoints") \
-# .outputMode("append") \
-#spark.streams.awaitAnyTermination()
-#http://localhost:5601/app/dashboards#/view/fe8bacf0-0e72-11ec-adf3-e16766a3809f?_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!f%2Cvalue%3A5000)%2Ctime%3A(from%3A'2021-08-02T12%3A00%3A00.000Z'%2Cto%3A'2021-08-02T17%3A30%3A00.000Z'))
+
+#http://localhost:5601/app/dashboards#/view/2f397610-0fcd-11ec-95f7-3995aa48d6d7?_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!f%2Cvalue%3A2000)%2Ctime%3A(from%3A'2021-08-01T11%3A00%3A51.458Z'%2Cto%3A'2021-08-03T11%3A15%3A57.505Z'))
