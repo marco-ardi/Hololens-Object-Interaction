@@ -4,7 +4,7 @@ import io
 import csv
 import numpy as np
 
-HOST = '172.26.106.119' # Host address
+HOST = '172.31.70.165' # Host address
 PORT = 9999        # Port to listen on (non-privileged ports are > 1023)
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
