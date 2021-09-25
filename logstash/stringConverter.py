@@ -35,17 +35,17 @@ with open('csv/logs.csv', 'r', encoding='UTF8', newline='') as myfile, open('csv
     reader = csv.reader(myfile, escapechar=' ')
     wr = csv.writer(mynewfile, quoting=csv.QUOTE_NONE, escapechar=' ')
 
-counter = 0
-while counter < 50:         #if i wait for 50 iteration, stop the application
-    for row in reader:
-            if len(row) > 23:
-                n_row = []
-                n_row = coord_converter(row[1:])
-                #n_row = n_row[:-1]
-                n_row.insert(0, row[0])
-                #print(n_row)
-                wr.writerow(n_row)
-                counter -= 1
-            else:
-                counter += 1
-print("no data coming")
+    counter = 0
+    while counter < 5000:         #if i wait for 50 iteration, stop the application
+        for row in reader:
+                if len(row) > 23:
+                    n_row = []
+                    n_row = coord_converter(row[1:])
+                    #n_row = n_row[:-1]
+                    n_row.insert(0, row[0])
+                    #print(n_row)
+                    wr.writerow(n_row)
+                    counter -= 1
+                else:
+                    counter += 1
+    print("no data coming")
