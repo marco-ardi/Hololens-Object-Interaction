@@ -633,157 +633,157 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.18f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Editor.ServiceInspectors">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Editor.ServiceInspectors.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Editor.ServiceInspectors.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.SceneSystem">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.SceneSystem.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.SceneSystem.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.WindowsMixedReality">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.WindowsMixedReality.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.WindowsMixedReality.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Editor.BuildAndDeploy">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Editor.BuildAndDeploy.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Editor.BuildAndDeploy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Tools">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Tools.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Tools.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Async">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Async.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Async.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.WindowsVoiceInput">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.WindowsVoiceInput.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.WindowsVoiceInput.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Gltf">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Gltf.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Gltf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.XRSDK.Oculus.Handtracking.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.XRSDK.Oculus.Handtracking.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.XRSDK.Oculus.Handtracking.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.UnityAR.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.UnityAR.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.UnityAR.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.XRSDK.WindowsMixedReality">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.XRSDK.WindowsMixedReality.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.XRSDK.WindowsMixedReality.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Tools.Runtime">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Tools.Runtime.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Tools.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.StandardAssets.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.StandardAssets.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.StandardAssets.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.WindowsMixedReality.Shared">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.WindowsMixedReality.Shared.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.WindowsMixedReality.Shared.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Editor.ClassExtensions">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Editor.ClassExtensions.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Editor.ClassExtensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.SDK.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.SDK.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.SDK.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.SpatialAwarenessSystem">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.SpatialAwarenessSystem.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.SpatialAwarenessSystem.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.InputSimulation.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.InputSimulation.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.InputSimulation.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.CameraSystem">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.CameraSystem.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.CameraSystem.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.SDK">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.SDK.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.SDK.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.OpenVR">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.OpenVR.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.OpenVR.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.TeleportSystem">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.TeleportSystem.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.TeleportSystem.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.SDK.Experimental.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.SDK.Experimental.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.SDK.Experimental.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.DiagnosticsSystem">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.DiagnosticsSystem.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.DiagnosticsSystem.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.InputSystem.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.InputSystem.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.InputSystem.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.InputSystem">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.InputSystem.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.InputSystem.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.LeapMotion">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.LeapMotion.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.LeapMotion.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Gltf.Importers">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Gltf.Importers.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Gltf.Importers.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.WindowsMixedReality.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.WindowsMixedReality.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.WindowsMixedReality.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.LeapMotion.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.LeapMotion.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.LeapMotion.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.XR.WindowsMR.Editor">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Unity.XR.WindowsMR.Editor.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Unity.XR.WindowsMR.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.InputAnimation">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.InputAnimation.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.InputAnimation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Editor.Inspectors">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Editor.Inspectors.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Editor.Inspectors.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.UnityAR">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.UnityAR.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.UnityAR.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.ObjectMeshObserver">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.ObjectMeshObserver.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.ObjectMeshObserver.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Editor.Utilities">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Editor.Utilities.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Editor.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.XRSDK">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.XRSDK.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.XRSDK.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.BoundarySystem">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.BoundarySystem.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.BoundarySystem.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.XRSDK.Oculus">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.XRSDK.Oculus.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Providers.XRSDK.Oculus.dll</HintPath>
     </Reference>
     <Reference Include="Unity.XR.WindowsMR">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Unity.XR.WindowsMR.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Unity.XR.WindowsMR.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.InputSimulation">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.InputSimulation.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/Microsoft.MixedReality.Toolkit.Services.InputSimulation.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/marco/Desktop/Thesis/HololensObjectInteraction/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/marco/Desktop/deletethis/Hololens-Object-Interaction/HololensObjectInteraction/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
