@@ -33,7 +33,7 @@ public class HandTracking : MonoBehaviour
         PhotoCap = this.gameObject.GetComponent<PhotoCaptureExample>();
         client = this.gameObject.GetComponent<TCPTestClient>();
         PhotoCap.setClient(client);
-        InvokeRepeating("Execute", 2f, 3.0f);   //wait 2s, then run Execute() once per 3 seconds
+        InvokeRepeating("Execute", 2f, 4.0f);   //wait 2s, then run Execute() once per 3 seconds
     }
 
     public void GetHandData(Handedness yourHand, out MixedRealityPose pose)
@@ -114,6 +114,7 @@ public class HandTracking : MonoBehaviour
         GetEyeGaze();
         GetHandData(Handedness.Left, out pose);
         GetHandData(Handedness.Right, out pose);
+        //msgToSend += "\n";
         Debug.Log(msgToSend);
         client.SendMsg(msgToSend);
         PhotoCap.TakeImage();

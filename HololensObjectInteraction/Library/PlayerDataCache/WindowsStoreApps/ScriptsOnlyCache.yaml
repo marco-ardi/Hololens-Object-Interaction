@@ -209,61 +209,61 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13434}
     - Class: 114
-      Script: {instanceID: 13596}
+      Script: {instanceID: 13484}
     - Class: 114
-      Script: {instanceID: 13616}
+      Script: {instanceID: 13598}
     - Class: 114
-      Script: {instanceID: 13678}
+      Script: {instanceID: 13618}
     - Class: 114
-      Script: {instanceID: 13716}
+      Script: {instanceID: 13680}
     - Class: 114
-      Script: {instanceID: 13840}
+      Script: {instanceID: 13718}
     - Class: 114
-      Script: {instanceID: 13848}
+      Script: {instanceID: 13842}
     - Class: 114
-      Script: {instanceID: 13866}
+      Script: {instanceID: 13850}
     - Class: 114
-      Script: {instanceID: 13914}
+      Script: {instanceID: 13868}
     - Class: 114
-      Script: {instanceID: 13952}
+      Script: {instanceID: 13916}
     - Class: 114
-      Script: {instanceID: 14044}
+      Script: {instanceID: 13954}
     - Class: 114
-      Script: {instanceID: 14262}
+      Script: {instanceID: 14046}
     - Class: 114
-      Script: {instanceID: 14374}
+      Script: {instanceID: 14264}
     - Class: 114
-      Script: {instanceID: 14378}
+      Script: {instanceID: 14376}
     - Class: 114
-      Script: {instanceID: 14452}
+      Script: {instanceID: 14380}
     - Class: 114
-      Script: {instanceID: 14486}
+      Script: {instanceID: 14454}
     - Class: 114
-      Script: {instanceID: 14518}
+      Script: {instanceID: 14488}
     - Class: 114
-      Script: {instanceID: 14556}
+      Script: {instanceID: 14520}
     - Class: 114
-      Script: {instanceID: 14604}
+      Script: {instanceID: 14558}
     - Class: 114
-      Script: {instanceID: 14630}
+      Script: {instanceID: 14606}
     - Class: 114
-      Script: {instanceID: 14714}
+      Script: {instanceID: 14632}
     - Class: 114
-      Script: {instanceID: 14854}
+      Script: {instanceID: 14716}
     - Class: 114
-      Script: {instanceID: 14938}
+      Script: {instanceID: 14856}
     - Class: 114
-      Script: {instanceID: 15066}
+      Script: {instanceID: 14940}
     - Class: 114
-      Script: {instanceID: 15090}
+      Script: {instanceID: 15068}
     - Class: 114
-      Script: {instanceID: 15230}
+      Script: {instanceID: 15092}
     - Class: 114
-      Script: {instanceID: 15288}
+      Script: {instanceID: 15232}
     - Class: 114
-      Script: {instanceID: 15372}
+      Script: {instanceID: 15290}
     - Class: 114
-      Script: {instanceID: 20880}
+      Script: {instanceID: 15374}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -408,61 +408,61 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13450}
     - Class: 114
-      Script: {instanceID: 13616}
+      Script: {instanceID: 13484}
     - Class: 114
-      Script: {instanceID: 13678}
+      Script: {instanceID: 13618}
     - Class: 114
-      Script: {instanceID: 13716}
+      Script: {instanceID: 13680}
     - Class: 114
-      Script: {instanceID: 13840}
+      Script: {instanceID: 13718}
     - Class: 114
-      Script: {instanceID: 13848}
+      Script: {instanceID: 13842}
     - Class: 114
-      Script: {instanceID: 13866}
+      Script: {instanceID: 13850}
     - Class: 114
-      Script: {instanceID: 13888}
+      Script: {instanceID: 13868}
     - Class: 114
-      Script: {instanceID: 13914}
+      Script: {instanceID: 13890}
     - Class: 114
-      Script: {instanceID: 13952}
+      Script: {instanceID: 13916}
     - Class: 114
-      Script: {instanceID: 13970}
+      Script: {instanceID: 13954}
     - Class: 114
-      Script: {instanceID: 14044}
+      Script: {instanceID: 13972}
     - Class: 114
-      Script: {instanceID: 14374}
+      Script: {instanceID: 14046}
     - Class: 114
-      Script: {instanceID: 14378}
+      Script: {instanceID: 14376}
     - Class: 114
-      Script: {instanceID: 14452}
+      Script: {instanceID: 14380}
     - Class: 114
-      Script: {instanceID: 14518}
+      Script: {instanceID: 14454}
     - Class: 114
-      Script: {instanceID: 14556}
+      Script: {instanceID: 14520}
     - Class: 114
-      Script: {instanceID: 14604}
+      Script: {instanceID: 14558}
     - Class: 114
-      Script: {instanceID: 14630}
+      Script: {instanceID: 14606}
     - Class: 114
-      Script: {instanceID: 14714}
+      Script: {instanceID: 14632}
     - Class: 114
-      Script: {instanceID: 14854}
+      Script: {instanceID: 14716}
     - Class: 114
-      Script: {instanceID: 14872}
+      Script: {instanceID: 14856}
     - Class: 114
-      Script: {instanceID: 14938}
+      Script: {instanceID: 14874}
     - Class: 114
-      Script: {instanceID: 15066}
+      Script: {instanceID: 14940}
     - Class: 114
-      Script: {instanceID: 15090}
+      Script: {instanceID: 15068}
     - Class: 114
-      Script: {instanceID: 15230}
+      Script: {instanceID: 15092}
     - Class: 114
-      Script: {instanceID: 15288}
+      Script: {instanceID: 15232}
     - Class: 114
-      Script: {instanceID: 15372}
+      Script: {instanceID: 15290}
     - Class: 114
-      Script: {instanceID: 20880}
+      Script: {instanceID: 15374}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -1584,6 +1584,12 @@ ScriptsOnlyBuild:
     className: SpatialMappingRenderer
   - hash:
       serializedVersion: 2
+      Hash: 72d4d77cf29fe1f8fe18498f2bf44626
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: HoloToolkit.Unity
+    className: MoveCanvas
+  - hash:
+      serializedVersion: 2
       Hash: 6ea1dd73f1dfe474a3868cfbb8aa887d
     assemblyName: Microsoft.MixedReality.Toolkit.SDK.dll
     namespaceName: Microsoft.MixedReality.Toolkit.Experimental.UI
@@ -2458,14 +2464,8 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 72d4d77cf29fe1f8fe18498f2bf44626
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: HoloToolkit.Unity
-    className: MoveCanvas
   platform: 21
   scenePathNames:
   - Assets/Scenes/SetIPAddress.unity
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/marco/Desktop/Thesis/Build
+  playerPath: C:/Users/marco/Desktop/Hololens-Object-Interaction/Build

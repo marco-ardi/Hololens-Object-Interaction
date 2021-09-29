@@ -13,7 +13,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
         /// for more information about the protocols that can be used when launching apps.</param>
         public void Open()
         {
-            Debug.Log($"LaunchUri: Launching {"http://www.google.com/"}");
+            Debug.Log($"LaunchUri: Launching {"http://" + TCPTestClient.IP + ":5601"}");
 
 #if WINDOWS_UWP
             UnityEngine.WSA.Application.InvokeOnUIThread(async () =>
@@ -26,8 +26,8 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
                 }
             }, false);
 #else
-            Application.OpenURL("http://www.google.com/");
-            //Application.OpenURL("http://" + TCPTestClient.IP + ":5601");
+            //Application.OpenURL("http://www.google.com/");
+            Application.OpenURL("http://" + TCPTestClient.IP + ":5601");
 #endif
         }
     }

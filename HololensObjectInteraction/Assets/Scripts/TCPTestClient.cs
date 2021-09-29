@@ -73,6 +73,10 @@ public class TCPTestClient : MonoBehaviour
 				string clientMessage = msg;
 				// Convert string message to byte array.                 
 				byte[] clientMessageAsByteArray = Encoding.UTF8.GetBytes(clientMessage);
+				byte[] msgSize = Encoding.UTF8.GetBytes(clientMessageAsByteArray.Length.ToString().PadLeft(8, '0'));
+				Debug.Log("msgSize =" + msgSize.ToString());
+
+				stream.Write(msgSize, 0, msgSize.Length);
 				// Write byte array to socketConnection stream.                 
 				stream.Write(clientMessageAsByteArray, 0, clientMessageAsByteArray.Length);
 				Debug.Log("Client sent his message - should be received by server");
@@ -95,6 +99,10 @@ public class TCPTestClient : MonoBehaviour
 			// Get a stream object for writing. 			
 			if (stream.CanWrite)
 			{
+				byte[] imgSize = Encoding.UTF8.GetBytes(image.Length.ToString().PadLeft(8, '0'));
+				Debug.Log("imgSize =" + image.ToString());
+
+				stream.Write(imgSize, 0, imgSize.Length);
 				stream.Write(image, 0, image.Length);
 				Debug.Log("Client sent his image - should be received by server");
 			}
