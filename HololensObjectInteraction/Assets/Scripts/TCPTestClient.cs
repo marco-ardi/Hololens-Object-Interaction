@@ -74,7 +74,7 @@ public class TCPTestClient : MonoBehaviour
 				// Convert string message to byte array.                 
 				byte[] clientMessageAsByteArray = Encoding.UTF8.GetBytes(clientMessage);
 				byte[] msgSize = Encoding.UTF8.GetBytes(clientMessageAsByteArray.Length.ToString().PadLeft(8, '0'));
-				Debug.Log("msgSize =" + msgSize.ToString());
+				Debug.Log("msgSize =" + clientMessageAsByteArray.Length.ToString().PadLeft(8, '0'));
 
 				stream.Write(msgSize, 0, msgSize.Length);
 				// Write byte array to socketConnection stream.                 
@@ -88,6 +88,22 @@ public class TCPTestClient : MonoBehaviour
 		}
 	}
 
+
+	private void SendByStep(byte[] image, int size)
+    {
+		int mul = size / 8192;
+		int reminder = size % 8192;
+		int lastStep = 0;
+		Debug.Log("imgsize=" + size);
+		Debug.Log("mul=" + mul);
+		for(int i=0; i<mul; i++)
+        {
+			stream.Write(image, lastStep, 8192);
+			lastStep += 8192;
+        }
+		stream.Write(image, lastStep, reminder);
+    }
+
 	public void SendImage(byte[] image)
 	{
 		if (socketConnection == null)
@@ -100,10 +116,11 @@ public class TCPTestClient : MonoBehaviour
 			if (stream.CanWrite)
 			{
 				byte[] imgSize = Encoding.UTF8.GetBytes(image.Length.ToString().PadLeft(8, '0'));
-				Debug.Log("imgSize =" + image.ToString());
+				Debug.Log("imgSize =" + image.Length.ToString().PadLeft(8, '0'));
 
 				stream.Write(imgSize, 0, imgSize.Length);
-				stream.Write(image, 0, image.Length);
+				SendByStep(image, image.Length);
+				//stream.Write(image, 0, image.Length);
 				Debug.Log("Client sent his image - should be received by server");
 			}
 		}
