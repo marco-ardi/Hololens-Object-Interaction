@@ -120,6 +120,7 @@ public class TCPTestClient : MonoBehaviour
 
 				stream.Write(imgSize, 0, imgSize.Length);
 				SendByStep(image, image.Length);
+				Debug.Log("ATTENZIONE, imgSize=" + image.Length.ToString().PadLeft(8, '0') + "image.Length=" + image.Length);
 				//stream.Write(image, 0, image.Length);
 				Debug.Log("Client sent his image - should be received by server");
 			}

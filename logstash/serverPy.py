@@ -5,7 +5,7 @@ import csv
 import numpy as np
 
 
-HOST = '192.168.1.10' # Host address
+HOST = '172.20.10.3' # Host address
 PORT = 9999        # Port to listen on (non-privileged ports are > 1023)
 
 def recv_by_step(conn, size):
@@ -36,8 +36,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
                     stringdata = conn.recv(int(str_size)).decode("utf-8")
                     print("String: ", stringdata)
-                except Exception:
-                   break
+                except Exception as e:
+                    print(e)
+                    break
                 if not stringdata: continue  
 
                 received_data = stringdata.split(' ')
@@ -49,11 +50,12 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 dim = dim.decode("utf-8")
                 print("dim = "+dim)
                 img = recv_by_step(conn, int(dim))
+                #img = conn.recv(int(dim))
                 print(img[:-10])
                 # img = conn.recv(int(dim)) #worst case scenario for a 1280x720 jpeg image is 160000 bytes
                 #print(img)
 
-                if not img: continue         #it is 2764800 bytes for a 1280x720 png image
+                #if not img: continue         #it is 2764800 bytes for a 1280x720 png image
                 try:
                     file_bytes = np.asarray(bytearray(io.BytesIO(img).read()), dtype=np.uint8)    
                     imgToShow = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)

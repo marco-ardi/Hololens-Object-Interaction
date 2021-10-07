@@ -2468,4 +2468,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/SetIPAddress.unity
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/marco/Desktop/Hololens-Object-Interaction/Build
+  playerPath: C:/Users/marco/Desktop/Hololens-Object-Interaction/HololensObjectInteraction/Build
