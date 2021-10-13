@@ -1,1 +1,2 @@
+logstash/csv/Data/model_final.pth filter=lfs diff=lfs merge=lfs -text
 *.pth filter=lfs diff=lfs merge=lfs -text
