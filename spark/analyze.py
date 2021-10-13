@@ -23,19 +23,29 @@ import torch
 import torchvision
 import detectron2
 from detectron2.utils.logger import setup_logger
+from detectron2.data.datasets import register_coco_instances, load_coco_json
 setup_logger()
 
 
 cfg = get_cfg()
 # add project-specific config (e.g., TensorMask) here if you're not running a model in detectron2's core library
-cfg.merge_from_file(model_zoo.get_config_file(
-    "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
+#cfg.merge_from_file(model_zoo.get_config_file(
+#    "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.55  # set threshold for this model
 # Find a model from detectron2's model zoo. You can use the https://dl.fbaipublicfiles... url as well
-cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url(
-    "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
+#cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url(
+#    "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
 
+register_coco_instances("enigma_val", {}, "/usr/share/logstash/csv/Data/val_coco.json", "./") 
 
+dataset_val_dicts = DatasetCatalog.get("enigma_val")
+enigma_val_metadata = MetadataCatalog.get("enigma_val")
+
+#cfg.merge_from_file("COCO-Detection/faster_rcnn_R_101_FPN_3x.yaml")
+cfg.merge_from_file("./configs/COCO-Detection/faster_rcnn_R_101_FPN_3x.yaml")
+#cfg.model_zoo.get_checkpoint_url("COCO-Detection/faster_rcnn_R_101_FPN_3x.yaml")
+cfg.MODEL.WEIGHTS = os.path.join("/usr/share/logstash/csv/Data/model_final.pth")
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 20
 
 def load_img(path):
     im = cv2.imread(path)
@@ -54,7 +64,8 @@ def check_labels(coord, outputs):
     offset = 10
 
     pred_classes = outputs["instances"].pred_classes.tolist()
-    class_names = MetadataCatalog.get(cfg.value.DATASETS.TRAIN[0]).thing_classes
+    #class_names = MetadataCatalog.get(cfg.value.DATASETS.TRAIN[0]).thing_classes
+    class_names = enigma_val_metadata.thing_classes
     pred_class_names = list(map(lambda x: class_names[x], pred_classes))
 
     for i in range(len(outputs["instances"].pred_boxes)):
@@ -70,15 +81,15 @@ def check_labels(coord, outputs):
             (coord[1]+offset >= outputs["instances"].pred_boxes[i].tensor.cpu().numpy()[0][1] and
              coord[1]+offset <= outputs["instances"].pred_boxes[i].tensor.cpu().numpy()[0][1] + outputs["instances"].pred_boxes[i].tensor.cpu().numpy()[0][3])
         ):
-            if(pred_class_names[i] != "person"):
+            if(pred_class_names[i] != "mano"):
                 lst.append(pred_class_names[i])
-
+    print(lst)
     return lst
 
 
 def visualize(im, outputs):
-    v = Visualizer(
-        im[:, :, ::-1], MetadataCatalog.get(cfg.value.DATASETS.TRAIN[0]), scale=1.2)
+    #v = Visualizer(im[:, :, ::-1], MetadataCatalog.get(cfg.value.DATASETS.TRAIN[0]), scale=1.2)
+    v = Visualizer(im[:, :, ::-1], enigma_val_metadata, scale=1.2)
 
     out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
 
@@ -135,7 +146,10 @@ def apply_detectron_row(kafka_row):
 
 #Version 2.0 return the id and a list of every class present in the image
 def apply_detectron_row_modified(kafka_row):
-    df_labels=result_schema.fieldNames()
+    df_labels = list(enigma_val_metadata.thing_classes)
+    print(list(enigma_val_metadata.thing_classes))
+    print(result_schema.fieldNames())
+    #df_labels=result_schema.fieldNames()
     #print(df_labels)
     #print(type(kafka_row))
     kafka_row = kafka_row.asDict()
@@ -147,9 +161,10 @@ def apply_detectron_row_modified(kafka_row):
     id = str(kafka_row[0])
     print(kafka_row[0])
     print("id =" + id)
-
+#JPG NON PNG
     if(not os.path.isfile("/usr/share/logstash/csv/" + id + ".jpg")):#check if photos exists, if not return 0
         #return list([id] + [0 for x in range(len(df_labels)-1)])     #cause otherwise it will crash
+        print("non trovo l'immagine")
         return {"id":id, "classes":""}
     tmp_img = load_img("/usr/share/logstash/csv/" + id + ".jpg")
     print(tmp_img.shape)
@@ -303,7 +318,8 @@ spark = SparkSession(sc)
 spark.sparkContext.setLogLevel("WARN")
 #MANDATORY 
 cfg = spark.sparkContext.broadcast(cfg)
-
+dataset_val_dicts = spark.sparkContext.broadcast(dataset_val_dicts)
+dataset_val_dicts = spark.sparkContext.broadcast(dataset_val_dicts)
 
 
 data_struct = tp.StructType([

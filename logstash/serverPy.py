@@ -10,7 +10,7 @@ import json
 
 
 
-HOST = '172.20.10.3' # Host address
+HOST = '172.20.10.5' # Host address
 PORT = 9999        # Port to listen on (non-privileged ports are > 1023)
 
 def recv_by_step(conn, size):

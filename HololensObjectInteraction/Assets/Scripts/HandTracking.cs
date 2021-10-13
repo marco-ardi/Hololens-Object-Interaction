@@ -14,7 +14,7 @@ public class HandTracking : MonoBehaviour
 {
 
     MixedRealityPose pose;
-    public static string msgToSend;
+    string msgToSend;
     public TCPTestClient client;
     PhotoCaptureExample PhotoCap;
 
@@ -106,7 +106,6 @@ public class HandTracking : MonoBehaviour
 
     void Execute()
     {
-        msgToSend = "";
         Debug.Log("Provo ad inviare");
         long ldap = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 60 * 60 * 2;
         string str = "0.###########";     //does this in order to prevent scientific notation
@@ -117,7 +116,8 @@ public class HandTracking : MonoBehaviour
         GetHandData(Handedness.Right, out pose);
         //msgToSend += "\n";
         Debug.Log(msgToSend);
-        //client.SendMsg(msgToSend);
+        client.SendMsg(msgToSend);
         PhotoCap.TakeImage();
+        msgToSend = "";
     }
 }
