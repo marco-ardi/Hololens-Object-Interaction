@@ -115,12 +115,27 @@ public class TCPTestClient : MonoBehaviour
 			// Get a stream object for writing. 			
 			if (stream.CanWrite)
 			{
-				byte[] imgSize = Encoding.UTF8.GetBytes(image.Length.ToString().PadLeft(8, '0'));
-				Debug.Log("imgSize =" + image.Length.ToString().PadLeft(8, '0'));
+				//byte[] imgSize = Encoding.UTF8.GetBytes(image.Length.ToString().PadLeft(8, '0'));
+				//Debug.Log("imgSize =" + image.Length.ToString().PadLeft(8, '0'));
 
-				stream.Write(imgSize, 0, imgSize.Length);
-				SendByStep(image, image.Length);
+				//stream.Write(imgSize, 0, imgSize.Length);
+				//SendByStep(image, image.Length);
+				//Debug.Log("ATTENZIONE, imgSize=" + image.Length.ToString().PadLeft(8, '0') + "image.Length=" + image.Length);
 				//stream.Write(image, 0, image.Length);
+				var imageBytesStr = Convert.ToBase64String(image);
+
+				string json = "{ \"msg\":" + "\"" + HandTracking.msgToSend + "\""+ "," 
+					+ "\"img\":" + "\"" + imageBytesStr + "\"" + "}";
+
+				byte[] jsonSize = Encoding.UTF8.GetBytes(json.Length.ToString().PadLeft(8, '0'));
+				Debug.Log("jsonSize =" + json.Length.ToString().PadLeft(8, '0'));
+				stream.Write(jsonSize, 0, jsonSize.Length);
+				
+				byte[] jsonStringToSend = Encoding.UTF8.GetBytes(json);
+				stream.Write(jsonStringToSend, 0, jsonStringToSend.Length);
+				Debug.Log("jsonStringToSend" + jsonStringToSend.Length);
+				//SendByStep(jsonStringToSend, jsonStringToSend.Length);
+				Debug.Log(json);
 				Debug.Log("Client sent his image - should be received by server");
 			}
 		}
