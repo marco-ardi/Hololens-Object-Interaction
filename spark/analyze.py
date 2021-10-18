@@ -83,7 +83,7 @@ def check_labels(coord, outputs):
         ):
             if(pred_class_names[i] != "mano"):
                 lst.append(pred_class_names[i])
-    print(lst)
+    #print(lst)
     return lst
 
 
@@ -99,63 +99,18 @@ def visualize(im, outputs):
     #cv2.imwrite( "/content/detected_wrong.jpg", out.get_image()[:, :, ::-1])
 
 
-
-#Version 1.0, return a list of 81 integers (each class), 1 -> present / 0 -> not present
-def apply_detectron_row(kafka_row):
-
-    df_labels=result_schema.fieldNames()
-
-    kafka_row = kafka_row.asDict()
-    kafka_row = list(kafka_row.values())
-
-    labels = []
-
-    id = str(kafka_row[0])
-    print(kafka_row[0])
-    print("id =" + id)
-
-    if(not os.path.isfile("/usr/share/logstash/csv/" + id + ".jpg")):#check if photos exists, if not return 0
-        return list([id] + [0 for x in range(len(df_labels)-1)])     #cause otherwise it will crash
-
-    tmp_img = load_img("/usr/share/logstash/csv/" + id + ".jpg")
-    print(tmp_img.shape)
-    tmp_outputs = predict(tmp_img)
-
-    for j in range(1, len(kafka_row)-1):   
-    # search in the nearby of coordinates  1-2  2-3  3-4
-        if(kafka_row[j] >= 0 and kafka_row[j+1] >= 0):  # filtering <0 values and NaN
-            labels += check_labels(coord=[kafka_row[j], kafka_row[j+1]], outputs=tmp_outputs)
-        j+=1
-
-    labels = list(set(labels))
-    labels.sort()
-    labels.insert(0, id)
-    row_to_append = []
-    row_to_append.append(id)
-    for w in range(1, len(df_labels)):
-        row_to_append.append(0)
-
-    for i in range(1, len(labels)):
-        for j in range(1, len(df_labels)):
-            if(labels[i] == df_labels[j]):
-                row_to_append[j] = 1
-                continue
-
-    #print(row_to_append)
-    return row_to_append
-
-#Version 2.0 return the id and a list of every class present in the image
 def apply_detectron_row_modified(kafka_row):
     df_labels = list(enigma_val_metadata.thing_classes)
-    print(list(enigma_val_metadata.thing_classes))
-    print(result_schema.fieldNames())
+    #print(list(enigma_val_metadata.thing_classes))
+    #print(result_schema.fieldNames())
     #df_labels=result_schema.fieldNames()
     #print(df_labels)
     #print(type(kafka_row))
     kafka_row = kafka_row.asDict()
     kafka_row = list(kafka_row.values())
-
-    labels = []
+    
+    gaze_labels = []
+    hand_labels = []
 
     # load img
     id = str(kafka_row[0])
@@ -170,114 +125,31 @@ def apply_detectron_row_modified(kafka_row):
     print(tmp_img.shape)
     tmp_outputs = predict(tmp_img)
 
-    for j in range(1, len(kafka_row)-1):   
+    #first tuple is gaze
+    gaze_labels += check_labels(coord=[kafka_row[1], kafka_row[2]], outputs=tmp_outputs)
+    #then 10 tuple for hand fingers
+    for j in range(3, len(kafka_row)-1, 2):   
     # search in the nearby of coordinates  1-2  2-3  3-4
         if(kafka_row[j] >= 0 and kafka_row[j+1] >= 0):  # filtering <0 values and NaN
-            labels += check_labels(coord=[kafka_row[j], kafka_row[j+1]], outputs=tmp_outputs)
-        j+=1
+            hand_labels += check_labels(coord=[kafka_row[j], kafka_row[j+1]], outputs=tmp_outputs)
 
-    labels = set(labels)
+    gaze_labels = set (gaze_labels)
+    hand_labels = set(hand_labels)
     #labels.add(id)
     df_labels = set(df_labels)
-    row_to_append = labels & df_labels
+    gaze_row_to_append = gaze_labels & df_labels
+    hand_row_to_append = hand_labels & df_labels
+    
     result = {
         "id":id,
-        "classes": list(row_to_append)
+        "Looked at": list(gaze_row_to_append),
+        "Interacted with": list(hand_row_to_append)
     }
 
     print(result)
     return result
 
 
-
-#Version 1.0 81 element, one per possible class
-es_mapping = {
-    "mappings":{
-        "properties":{
-            "id":{"type":"date"},
-            "person":{"type":"integer"},
-            "bicycle":{"type":"integer"},
-            "car":{"type":"integer"},
-            "motorcycle":{"type":"integer"},
-            "airplane":{"type":"integer"},
-            "bus":{"type":"integer"},
-            "train":{"type":"integer"},
-            "truck":{"type":"integer"},
-            "boat":{"type":"integer"},
-            "traffic_light":{"type":"integer"},
-            "fireplug":{"type":"integer"},
-            "stop_sign":{"type":"integer"},
-            "parking_meter":{"type":"integer"},
-            "bench":{"type":"integer"},
-            "bird":{"type":"integer"},
-            "cat":{"type":"integer"},
-            "dog":{"type":"integer"},
-            "horse":{"type":"integer"},
-            "sheep":{"type":"integer"},
-            "beef":{"type":"integer"},
-            "elephant":{"type":"integer"},
-            "bear":{"type":"integer"},
-            "zebra":{"type":"integer"},
-            "giraffe":{"type":"integer"},
-            "backpack":{"type":"integer"},
-            "umbrella":{"type":"integer"},
-            "bag":{"type":"integer"},
-            "necktie":{"type":"integer"},
-            "bag2":{"type":"integer"},
-            "frisbee":{"type":"integer"},
-            "ski":{"type":"integer"},
-            "snowboard":{"type":"integer"},
-            "ball":{"type":"integer"},
-            "kite":{"type":"integer"},
-            "baseball_bat":{"type":"integer"},
-            "baseball_glove":{"type":"integer"},
-            "skateboard":{"type":"integer"},
-            "surfboard":{"type":"integer"},
-            "tennis_racket":{"type":"integer"},
-            "bottle":{"type":"integer"},
-            "wineglass":{"type":"integer"},
-            "cup":{"type":"integer"},
-            "fork":{"type":"integer"},
-            "knife":{"type":"integer"},
-            "spoon":{"type":"integer"},
-            "bowl":{"type":"integer"},
-            "banana":{"type":"integer"},
-            "apple":{"type":"integer"},
-            "sandwich":{"type":"integer"},
-            "orange":{"type":"integer"},
-            "broccoli":{"type":"integer"},
-            "carrot":{"type":"integer"},
-            "frank":{"type":"integer"},
-            "pizza":{"type":"integer"},
-            "doughnut":{"type":"integer"},
-            "cake":{"type":"integer"},
-            "chair":{"type":"integer"},
-            "sofa":{"type":"integer"},
-            "pot":{"type":"integer"},
-            "bed":{"type":"integer"},
-            "dining_table":{"type":"integer"},
-            "toilet":{"type":"integer"},
-            "television_receiver":{"type":"integer"},
-            "laptop":{"type":"integer"},
-            "mouse":{"type":"integer"},
-            "remote_control":{"type":"integer"},
-            "computer_keyboard":{"type":"integer"},
-            "cellular_telephone":{"type":"integer"},
-            "microwave":{"type":"integer"},
-            "oven":{"type":"integer"},
-            "toaster":{"type":"integer"},
-            "sink":{"type":"integer"},
-            "electric_refrigerator":{"type":"integer"},
-            "book":{"type":"integer"},
-            "clock":{"type":"integer"},
-            "vase":{"type":"integer"},
-            "scissors":{"type":"integer"},
-            "teddy":{"type":"integer"},
-            "hand_blower":{"type":"integer"},
-            "toothbrush":{"type":"integer"},
-        }
-    }
-}
 
 #Version 2.0 id and list of classes
 es_mapping_modified = {
@@ -348,95 +220,12 @@ data_struct = tp.StructType([
     tp.StructField(name="c22", dataType=tp.IntegerType(), nullable=True)
 ])
 
-#Version 1.0
-result_schema = tp.StructType([
-    tp.StructField(name="id", dataType=tp.StringType(), nullable=True),
-    tp.StructField(name='person', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bicycle', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='car', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='motorcycle', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='airplane', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bus', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='train', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='truck', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='boat', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='traffic_light', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='fireplug', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='stop_sign', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='parking_meter', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bench', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bird', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='cat', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='dog', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='horse', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='sheep', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='beef', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='elephant', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bear', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='zebra', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='giraffe', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='backpack', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='umbrella', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bag', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='necktie', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bag2', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='frisbee', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='ski', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='snowboard', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='ball', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='kite', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='baseball_bat', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='baseball_glove', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='skateboard', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='surfboard', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='tennis_racket', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bottle', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='wineglass', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='cup', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='fork', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='knife', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='spoon', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bowl', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='banana', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='apple', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='sandwich', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='orange', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='broccoli', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='carrot', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='frank', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='pizza', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='doughnut', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='cake', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='chair', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='sofa', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='pot', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='bed', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='dining_table', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='toilet', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='television_receiver', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='laptop', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='mouse', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='remote_control', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='computer_keyboard', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='cellular_telephone', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='microwave', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='oven', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='toaster', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='sink', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='electric_refrigerator', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='book', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='clock', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='vase', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='scissors', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='teddy', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='hand_blower', dataType=tp.IntegerType(), nullable=True),
-    tp.StructField(name='toothbrush', dataType=tp.IntegerType(), nullable=True)
-])
 
 #Version 2.0
 result_schema_modified =tp.StructType([
     tp.StructField(name="id", dataType=tp.StringType(), nullable=True),
-    tp.StructField(name="classes", dataType=tp.ArrayType(tp.StringType()), nullable=True)
+    tp.StructField(name="Looked at", dataType=tp.ArrayType(tp.StringType()), nullable=True),
+    tp.StructField(name="Interacted with", dataType=tp.ArrayType(tp.StringType()), nullable=True)
 ])
 
 #Declaring apply_detectron as user defined function
