@@ -79,7 +79,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 try:
                     file_bytes = np.asarray(bytearray(io.BytesIO(img).read()), dtype=np.uint8)    
                     imgToShow = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-                    cv2.imwrite("csv/" + received_data[0] +'.jpg', imgToShow)
+                    cv2.imwrite("csv/input_imgs/" + received_data[0] +'.jpg', imgToShow)
                 except Exception as e:
                     print("errore:", e)
                     True

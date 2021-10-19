@@ -87,7 +87,7 @@ def check_labels(coord, outputs):
     return lst
 
 
-def visualize(im, outputs):
+def visualize(im, outputs, id):
     #v = Visualizer(im[:, :, ::-1], MetadataCatalog.get(cfg.value.DATASETS.TRAIN[0]), scale=1.2)
     v = Visualizer(im[:, :, ::-1], enigma_val_metadata, scale=1.2)
 
@@ -95,8 +95,8 @@ def visualize(im, outputs):
 
     #[636, 361, 387, 388, 497, 325, 581, 327, 624, 359, 626, 458]
     #cv2.rectangle(im, (636-30, 361-30), (636+30, 361+30), (0,0,0), 10)
-    cv2.imshow(out.get_image()[:, :, ::-1])
-    #cv2.imwrite( "/content/detected_wrong.jpg", out.get_image()[:, :, ::-1])
+    #cv2.imshow(out.get_image()[:, :, ::-1])
+    cv2.imwrite("/usr/share/logstash/csv/output_imgs/detected_"+id+".jpg", out.get_image()[:, :, ::-1])
 
 
 def apply_detectron_row_modified(kafka_row):
@@ -116,12 +116,12 @@ def apply_detectron_row_modified(kafka_row):
     id = str(kafka_row[0])
     print(kafka_row[0])
     print("id =" + id)
-#JPG NON PNG
-    if(not os.path.isfile("/usr/share/logstash/csv/" + id + ".jpg")):#check if photos exists, if not return 0
+
+    if(not os.path.isfile("/usr/share/logstash/csv/input_imgs/" + id + ".jpg")):#check if photos exists, if not return 0
         #return list([id] + [0 for x in range(len(df_labels)-1)])     #cause otherwise it will crash
         print("non trovo l'immagine")
         return {"id":id, "classes":""}
-    tmp_img = load_img("/usr/share/logstash/csv/" + id + ".jpg")
+    tmp_img = load_img("/usr/share/logstash/csv/input_imgs/" + id + ".jpg")
     print(tmp_img.shape)
     tmp_outputs = predict(tmp_img)
 
@@ -132,6 +132,9 @@ def apply_detectron_row_modified(kafka_row):
     # search in the nearby of coordinates  1-2  2-3  3-4
         if(kafka_row[j] >= 0 and kafka_row[j+1] >= 0):  # filtering <0 values and NaN
             hand_labels += check_labels(coord=[kafka_row[j], kafka_row[j+1]], outputs=tmp_outputs)
+    
+    #now we save detected img
+    visualize(tmp_img, tmp_outputs, id)
 
     gaze_labels = set (gaze_labels)
     hand_labels = set(hand_labels)
@@ -140,10 +143,20 @@ def apply_detectron_row_modified(kafka_row):
     gaze_row_to_append = gaze_labels & df_labels
     hand_row_to_append = hand_labels & df_labels
     
+    
+    pred_classes = tmp_outputs["instances"].pred_classes.tolist()
+    #class_names = MetadataCatalog.get(cfg.value.DATASETS.TRAIN[0]).thing_classes
+    class_names = enigma_val_metadata.thing_classes
+    pred_class_names = list(map(lambda x: class_names[x], pred_classes))
+
+    object_in_scene = set(pred_class_names)
+
+
     result = {
         "id":id,
         "Looked at": list(gaze_row_to_append),
-        "Interacted with": list(hand_row_to_append)
+        "Interacted with": list(hand_row_to_append),
+        "Object in scene": list(object_in_scene)
     }
 
     print(result)
@@ -225,7 +238,8 @@ data_struct = tp.StructType([
 result_schema_modified =tp.StructType([
     tp.StructField(name="id", dataType=tp.StringType(), nullable=True),
     tp.StructField(name="Looked at", dataType=tp.ArrayType(tp.StringType()), nullable=True),
-    tp.StructField(name="Interacted with", dataType=tp.ArrayType(tp.StringType()), nullable=True)
+    tp.StructField(name="Interacted with", dataType=tp.ArrayType(tp.StringType()), nullable=True),
+    tp.StructField(name="Object in scene", dataType=tp.ArrayType(tp.StringType()), nullable=True)
 ])
 
 #Declaring apply_detectron as user defined function
