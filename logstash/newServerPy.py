@@ -12,7 +12,7 @@ from ftfy import fix_text
 import json
 
 
-HOST = '192.168.60.32' # Host address
+HOST = '192.168.60.35' # Host address
 PORT = 9999        # Port to listen on (non-privileged ports are > 1023)
 focal_l = 1300
 center_x = 1280/2
