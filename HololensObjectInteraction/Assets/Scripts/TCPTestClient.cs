@@ -74,12 +74,12 @@ public class TCPTestClient : MonoBehaviour
 				// Convert string message to byte array.                 
 				byte[] clientMessageAsByteArray = Encoding.UTF8.GetBytes(clientMessage);
 				byte[] msgSize = Encoding.UTF8.GetBytes(clientMessageAsByteArray.Length.ToString().PadLeft(8, '0'));
-				Debug.Log("msgSize =" + clientMessageAsByteArray.Length.ToString().PadLeft(8, '0'));
+				//Debug.Log("msgSize =" + clientMessageAsByteArray.Length.ToString().PadLeft(8, '0'));
 
 				stream.Write(msgSize, 0, msgSize.Length);
 				// Write byte array to socketConnection stream.                 
 				stream.Write(clientMessageAsByteArray, 0, clientMessageAsByteArray.Length);
-				Debug.Log("Client sent his message - should be received by server");
+				//Debug.Log("Client sent his message - should be received by server");
 			}
 		}
 		catch (SocketException socketException)
@@ -128,15 +128,15 @@ public class TCPTestClient : MonoBehaviour
 					+ "\"img\":" + "\"" + imageBytesStr + "\"" + "}";
 
 				byte[] jsonSize = Encoding.UTF8.GetBytes(json.Length.ToString().PadLeft(8, '0'));
-				Debug.Log("jsonSize =" + json.Length.ToString().PadLeft(8, '0'));
+				//Debug.Log("jsonSize =" + json.Length.ToString().PadLeft(8, '0'));
 				stream.Write(jsonSize, 0, jsonSize.Length);
 				
 				byte[] jsonStringToSend = Encoding.UTF8.GetBytes(json);
 				stream.Write(jsonStringToSend, 0, jsonStringToSend.Length);
-				Debug.Log("jsonStringToSend" + jsonStringToSend.Length);
+				//Debug.Log("jsonStringToSend" + jsonStringToSend.Length);
 				//SendByStep(jsonStringToSend, jsonStringToSend.Length);
-				Debug.Log(json);
-				Debug.Log("Client sent his image - should be received by server");
+				//Debug.Log(json);
+				//Debug.Log("Client sent his image - should be received by server");
 			}
 		}
 		catch (SocketException socketException)

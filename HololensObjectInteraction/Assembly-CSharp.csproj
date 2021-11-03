@@ -64,12 +64,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ChangeIcon.cs" />
     <Compile Include="Assets\Scripts\HandTracking.cs" />
     <Compile Include="Assets\Scripts\MoveCanvas.cs" />
     <Compile Include="Assets\Scripts\OpenBrowserOnClick.cs" />
     <Compile Include="Assets\Scripts\PhotoCaptureExample.cs" />
     <Compile Include="Assets\Scripts\SendIP.cs" />
+    <Compile Include="Assets\Scripts\StartStopRecording.cs" />
     <Compile Include="Assets\Scripts\TCPTestClient.cs" />
+    <Compile Include="Assets\Scripts\customButtonHelper.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\MRTK\Shaders\Text3DShader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

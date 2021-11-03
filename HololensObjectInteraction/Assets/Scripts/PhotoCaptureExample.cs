@@ -50,7 +50,7 @@ public class PhotoCaptureExample : MonoBehaviour
     void OnCapturedPhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
     {
         photoCaptureFrame.UploadImageDataToTexture(targetTexture);
-        Debug.Log("Invio l'immagine al server.");
+        //Debug.Log("Invio l'immagine al server.");
         //byte[] bytes = targetTexture.EncodeToPNG();
         byte[] bytes = targetTexture.EncodeToJPG();
         client.SendImage(bytes);
@@ -63,7 +63,7 @@ public class PhotoCaptureExample : MonoBehaviour
         {
             PhotoCapture.CreateAsync(false, delegate (PhotoCapture captureObject)   //true -> Holograms, false -> No Holograms
             {
-                Debug.Log("Entered in TakeImage()");
+                //Debug.Log("Entered in TakeImage()");
                 photoCaptureObject = captureObject;
                 CameraParameters cameraParameters = new CameraParameters();
                 cameraParameters.hologramOpacity = 0.9f;

@@ -20,7 +20,7 @@ public class HandTracking : MonoBehaviour
 
     //does this in order to prevent comma in floating point numbers, it causes errors in .csv files
     public NumberFormatInfo nfi;
-
+    public static bool canRun;
 
     void Start()
     {
@@ -28,12 +28,13 @@ public class HandTracking : MonoBehaviour
         nfi.NumberDecimalSeparator = ".";
 
         msgToSend = "";
+        canRun = true;
         //should set frame rate to 30fps
         Application.targetFrameRate = 30;
         PhotoCap = this.gameObject.GetComponent<PhotoCaptureExample>();
         client = this.gameObject.GetComponent<TCPTestClient>();
         PhotoCap.setClient(client);
-        InvokeRepeating("Execute", 2f, 4.0f);   //wait 2s, then run Execute() once per 3 seconds
+        InvokeRepeating("Execute", 2f, 2f);   //wait 2s, then run Execute() once per 3 seconds
     }
 
     public void GetHandData(Handedness yourHand, out MixedRealityPose pose)
@@ -97,7 +98,7 @@ public class HandTracking : MonoBehaviour
     public void GetEyeGaze()
     {
         Vector3 gazePos = CoreServices.InputSystem.EyeGazeProvider.GazeOrigin + CoreServices.InputSystem.EyeGazeProvider.GazeDirection.normalized;
-        Debug.Log("gazePos=" + gazePos.x + gazePos.y + gazePos.z);
+        //Debug.Log("gazePos=" + gazePos.x + gazePos.y + gazePos.z);
         msgToSend += (gazePos.x).ToString(nfi) + " ";
         msgToSend += (gazePos.y).ToString(nfi) + " ";
         msgToSend += (gazePos.z).ToString(nfi) + " ";
@@ -106,18 +107,20 @@ public class HandTracking : MonoBehaviour
 
     void Execute()
     {
-        msgToSend = "";
-        Debug.Log("Provo ad inviare");
-        long ldap = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 60 * 60 * 2;
-        string str = "0.###########";     //does this in order to prevent scientific notation
-        str = ldap.ToString();
-        msgToSend += str + " ";
-        GetEyeGaze();
-        GetHandData(Handedness.Left, out pose);
-        GetHandData(Handedness.Right, out pose);
-        //msgToSend += "\n";
-        Debug.Log(msgToSend);
-        //client.SendMsg(msgToSend);
-        PhotoCap.TakeImage();
+        //Debug.Log("canRun=" + canRun);
+        if (canRun) { 
+            msgToSend = "";
+            long ldap = DateTimeOffset.Now.ToUnixTimeMilliseconds() + 60 * 60 * 2;
+            string str = "0.###########";     //does this in order to prevent scientific notation
+            str = ldap.ToString();
+            msgToSend += str + " ";
+            GetEyeGaze();
+            GetHandData(Handedness.Left, out pose);
+            GetHandData(Handedness.Right, out pose);
+            //msgToSend += "\n";
+            //Debug.Log(msgToSend);
+            //client.SendMsg(msgToSend);
+            PhotoCap.TakeImage();
+        }
     }
 }

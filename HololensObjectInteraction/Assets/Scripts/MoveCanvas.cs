@@ -24,7 +24,12 @@ namespace HoloToolkit.Unity
         [Range(0, 1)]
         public float smoothFactor = 0.5f;
 
-        private void Update()
+        void Start()
+        {
+            InvokeRepeating("FollowCamera", 0.0f, 0.04f);   //will update 25 times per second
+        }
+
+        private void FollowCamera()
         {
             // make the UI always face towards the camera
             transform.rotation = FirstPersonCamera.transform.rotation;
