@@ -20,7 +20,7 @@ def scrape():
     driver = webdriver.Chrome(options=options)
     driver.set_window_size(1024, 600)
     driver.maximize_window()
-    driver.get("http://localhost:5601/app/dashboards#/view/e6d05390-3cc1-11ec-ad71-ad824bcd705f?_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!f%2Cvalue%3A5000)%2Ctime%3A(from%3A'2021-11-02T15%3A59%3A55.196Z'%2Cto%3Anow))")
+    driver.get("http://localhost:5601/app/dashboards#/view/777e9700-4229-11ec-9943-87ab72bee4db?_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!f%2Cvalue%3A3000)%2Ctime%3A(from%3Anow-30m%2Cto%3Anow))")
     time.sleep(10)
     print("im scraping")
     try:
@@ -28,8 +28,9 @@ def scrape():
         dismiss1.click()
         images = WebDriverWait(driver, 1).until(EC.presence_of_all_elements_located((By.XPATH,'//*[@id="kibana-body"]/div/div/div/div[2]/div/div/div/div/div/div/div')))
         print(len(images))
+        print(images)
         for i in range(0, len(images)-1):
-            images[i].screenshot("/home/marco/Desktop/FlaskWebServer/static/image"+str(i)+".png") 
+            images[i].screenshot("/home/marco/Desktop/Hololens-Object-Interaction/FlaskWebServer/static/image"+str(i)+".png") 
     except:
         print("error")
     driver.close()
