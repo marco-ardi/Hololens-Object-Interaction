@@ -20,7 +20,7 @@ def scrape():
     driver = webdriver.Chrome(options=options)
     driver.set_window_size(1024, 600)
     driver.maximize_window()
-    driver.get("http://localhost:5601/app/dashboards#/view/777e9700-4229-11ec-9943-87ab72bee4db?_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!f%2Cvalue%3A3000)%2Ctime%3A(from%3Anow-30m%2Cto%3Anow))")
+    driver.get("http://localhost:5601/app/dashboards#/view/777e9700-4229-11ec-9943-87ab72bee4db?_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3A'2021-11-01T10%3A21%3A22.348Z'%2Cto%3Anow))")
     time.sleep(10)
     print("im scraping")
     try:
