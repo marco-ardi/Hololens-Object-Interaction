@@ -24,11 +24,12 @@ public class PhotoCaptureExample : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
-        cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
+        cameraResolution = UnityEngine.Windows.WebCam.VideoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
+        //cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
         //cameraResolution = new Resolution { width = 1280, height = 720, refreshRate = 0 };
         //debugText.text = cameraResolution.width.ToString() + " " + cameraResolution.height.ToString();
-        //targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);  //default hololens resolution is 3904x2196, it's too much
-        targetTexture = new Texture2D(1280, 720);
+        targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);  //default hololens resolution is 3904x2196, it's too much
+        //targetTexture = new Texture2D(1280, 720);
         // targetTexture = new Texture2D(480, 270);
         // InputManager.Instance.PushFallbackInputHandler(gameObject);
     }
