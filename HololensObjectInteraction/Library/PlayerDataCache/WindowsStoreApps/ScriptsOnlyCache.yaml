@@ -52,6 +52,7 @@ ScriptsOnlyBuild:
     - Microsoft.MixedReality.Toolkit.Input.BaseHandVisualizer
     - Microsoft.MixedReality.Toolkit.Input.MixedRealityControllerMappingProfile
     - Microsoft.MixedReality.Toolkit.Input.MixedRealityControllerVisualizationProfile
+    - Microsoft.MixedReality.Toolkit.Input.MixedRealityEyeTrackingProfile
     - Microsoft.MixedReality.Toolkit.Input.MixedRealityGesturesProfile
     - Microsoft.MixedReality.Toolkit.Input.MixedRealityHandTrackingProfile
     - Microsoft.MixedReality.Toolkit.Input.MixedRealityInputActionRulesProfile
@@ -214,6 +215,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13436}
     - Class: 114
       Script: {instanceID: 13486}
+    - Class: 114
+      Script: {instanceID: 13570}
     - Class: 114
       Script: {instanceID: 13600}
     - Class: 114
@@ -415,6 +418,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13452}
     - Class: 114
       Script: {instanceID: 13486}
+    - Class: 114
+      Script: {instanceID: 13570}
     - Class: 114
       Script: {instanceID: 13620}
     - Class: 114
