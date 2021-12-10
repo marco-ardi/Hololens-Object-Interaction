@@ -17,7 +17,10 @@ ElastiSearch is used for Data Indexing, these data are then used by Kibana for s
 These dashboard can also be seen in AR on Hololens2
 
 ## How to setup 
-#### System requirement:
+#### Client (Hololens2)
+- Open HololensObjectInteraction's folder on Unity, Build and Deploy on Hololens2.
+
+#### Server System requirement:
 - Linux/MacOS/Windows WSL2.
 - Nvidia GPU (mandatory for using [Detectron2.](https://github.com/facebookresearch/detectron2))
 - Nvidia drivers/CUDA toolkit 11.1
