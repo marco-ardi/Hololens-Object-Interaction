@@ -1,11 +1,15 @@
-[![CodeFactor](https://www.codefactor.io/repository/https://github.com/marco-ardi/Hololens-Object-Interaction/badge)](https://www.codefactor.io/repository/https://github.com/marco-ardi/Hololens-Object-Interaction)
+<!--[![CodeFactor](https://www.codefactor.io/repository/https://github.com/marco-ardi/Hololens-Object-Interaction/badge)](https://www.codefactor.io/repository/https://github.com/marco-ardi/Hololens-Object-Interaction)
+-->
 # Hololens Object Interaction
 
 ## Overview
 Project for Bachelor Thesis @ University of Catania.
 
 ![](https://user-images.githubusercontent.com/50525101/145630275-f66cb3f6-da47-4fd2-8ac3-27501d30881d.png)
-
+<!--https://youtu.be/j4AEHTtAd_c -->
+## Demo
+<iframe width="420" height="315" src="https://youtu.be/Rb0ExsrmIPg">
+</iframe>
 
 A Pipeline for real time object detection/interaction on data coming from a data source (Microsoft Hololens2) using ELK Stack.
 A pair of Hololens2 sends, once per 2/3 seconds, a photo and a formatted log about eye gaze and hand position, via a TCP socket.
