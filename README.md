@@ -8,7 +8,7 @@ Project for Bachelor Thesis @ University of Catania.
 ![](https://user-images.githubusercontent.com/50525101/145630275-f66cb3f6-da47-4fd2-8ac3-27501d30881d.png)
 <!--https://youtu.be/j4AEHTtAd_c -->
 ## Demo
-[![Hololens Object Interaction Demo](https://img.youtube.com/vi/j4AEHTtAd_c/0.jpg)](https://www.youtube.com/watch?v=j4AEHTtAd_c)
+[![Hololens Object Interaction Demo](https://img.youtube.com/vi/j4AEHTtAd_c/0.jpg){:target="_blank"}](https://www.youtube.com/watch?v=j4AEHTtAd_c)
 
 
 A Pipeline for real time object detection/interaction on data coming from a data source (Microsoft Hololens2) using ELK Stack.
