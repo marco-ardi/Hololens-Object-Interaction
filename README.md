@@ -10,7 +10,7 @@ Project for Bachelor Thesis @ University of Catania.
 ## Demo
 [![Hololens Object Interaction Demo](https://img.youtube.com/vi/j4AEHTtAd_c/0.jpg)](https://www.youtube.com/watch?v=j4AEHTtAd_c)
 
-
+## Introduction
 A Pipeline for real time object detection/interaction on data coming from a data source (Microsoft Hololens2) using ELK Stack.
 A pair of Hololens2 sends, once per 2/3 seconds, a photo and a formatted log about eye gaze and hand position, via a TCP socket.
 A socket server (python) receives these data, convert logs into 2D logs and stores on a Docker Volume.
