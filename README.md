@@ -1,5 +1,6 @@
 <!--[![CodeFactor](https://www.codefactor.io/repository/https://github.com/marco-ardi/Hololens-Object-Interaction/badge)](https://www.codefactor.io/repository/https://github.com/marco-ardi/Hololens-Object-Interaction)
 -->
+[![CodeFactor](https://www.codefactor.io/repository/github/marco-ardi/Hololens-Object-Interaction/badge)](https://www.codefactor.io/repository/github/marco-ardi/Hololens-Object-Interaction)
 # Hololens Object Interaction
 
 ## Overview
