@@ -42,3 +42,6 @@ These dashboard can also be seen in AR on Hololens2
 - **Run** `cd ../logstash`
 - **Run** `python serverPy.py`
 
+## Credits
+This Bachelor project was supervised by Professor [Antonino Furnari](http://www.antoninofurnari.it).\
+Hololens2 was provided by [NextVisionLab](https://www.nextvisionlab.it/).
