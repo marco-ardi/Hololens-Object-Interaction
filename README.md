@@ -43,5 +43,6 @@ These dashboard can also be seen in AR on Hololens2
 - **Run** `python serverPy.py`
 
 ## Credits
-This Bachelor project was supervised by Professor [Antonino Furnari](http://www.antoninofurnari.it).\
-Hololens2 was provided by [NextVisionLab](https://www.nextvisionlab.it/).
+This Bachelor thesis was supervised by Professor [Antonino Furnari](http://www.antoninofurnari.it).\
+This project was made in collaboration with [NEXT VISION](https://www.nextvisionlab.it/).
+
